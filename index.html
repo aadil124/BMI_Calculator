@@ -11,36 +11,49 @@
 </head>
 
 <body>
-    <div>
-        <h1>BMI Calculator</h1>
-        <br />
-        <label>Weight</label>
-        <input type="text" id="weight_data" placeholder="Enter value in Kg" /><br />
-        <label>Height</label>
-        <input type="text" id="height_data" placeholder="Enter value in ft" /><br />
-        <label>BMI Value</label>
-        <input type="text" id="bmi_value" /><br />
-        <button onclick="checkBMI()">Check BMI</button>
-        <br />
-        <h2></h2>
+    <div class="mainDiv">
+        <div class="bmi_box">
+            <h1>BMI Calculator</h1>
+            <br />
+            <label>Weight</label>
+            <input type="number" required id="weight_data" placeholder="Enter value in Kg" /><br />
+            <label>Height</label>
+            <input type="number" required id="height_data" placeholder="Enter value in ft" /><br />
+            <label>BMI Value</label>
+            <input type="text" id="bmi_value" required /><br />
+            <button class="btn_bmi">Check BMI</button>
+            <br>
+            <h2 class="show_result"></h2>
+        </div>
     </div>
 
     <script>
+        let btn = document.querySelector(".btn_bmi")
+        btn.addEventListener("click", checkBMI)
         function checkBMI() {
-            var weight = document.getElementById("weight_data").value;
-            var height = document.getElementById("height_data").value;
-
+            let weight = document.getElementById("weight_data").value;
+            let height = document.getElementById("height_data").value;
             height = height * 12;
             height = height * 0.025;
-            console.log(weight);
-            console.log(height);
-            var bmivalue = (weight / Math.pow(height, 2));
+            // console.log(weight);
+            // console.log(height);
+            let bmiValue = (weight / Math.pow(height, 2));
+            // console.log(bmiValue);
+            let newBmiValue = Math.round(bmiValue);
+            document.getElementById("bmi_value").value = newBmiValue;
+            let showResult = document.querySelector(".show_result");
 
-            console.log(bmivalue);
+            if (newBmiValue < 18.5) {
+                showResult.innerHTML = `<b>you're in the underweight range.</b>`
+            } else if (newBmiValue >= 18.5 && newBmiValue < 24.9) {
+                showResult.innerHTML = `<b>you're in the healthy weight range.</b>`
+            } else if (newBmiValue >= 24.9 && newBmiValue < 29.9) {
+                showResult.innerHTML = `<b>you're in the overweight range.</b>`
+            } else {
+                showResult.innerHTML = `<b>you're in the obese range.</b>`
+            }
 
-            var newbmivalue = Math.round(bmivalue);
 
-            document.getElementById("bmi_value").value = newbmivalue;
         }
     </script>
 </body>
